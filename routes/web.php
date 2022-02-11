@@ -15,19 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/filmes', function (){
-    $filmes = [
-     'GAME OF THRONES',
-       'LOST',
-       'MR ROBOT'
-   ];
-   $html = "<ul>";
-        foreach ($filmes as $filme){
-            $html .= "<li> $filme </li>";
-        }
-    $html .= "</ul>";
-
-       return $html;
-});
-
+Route::get('/filmes', 'FilmesController@index');
+Route::get('/filmes/create', 'FilmesController@create');
+Route::post('/filmes/create', 'FilmesController@store');
 
