@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/filmes', 'FilmesController@index');
-Route::get('/filmes/create', 'FilmesController@create');
+Route::get('/filmes', 'FilmesController@index')->name('listar-filmes');
+Route::get('/filmes/create', 'FilmesController@create') ->name('form-criar-filme');
 Route::post('/filmes/create', 'FilmesController@store');
+Route::delete('/filmes/{id}', 'FilmesController@destroy');
 

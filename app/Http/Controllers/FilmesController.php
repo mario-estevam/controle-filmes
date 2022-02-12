@@ -9,9 +9,10 @@ class FilmesController extends Controller
 {
     public function index(Request $request){
 
-        $filmes = Filme::all();
+        $filmes = Filme::query() -> orderBy('nome')->get();
+        $mensagem = $request->session()->get('mensagem');
 
-       return view('filmes/index', compact('filmes'));
+       return view('filmes/index', compact('filmes','mensagem'));
 
     }
 
@@ -23,9 +24,25 @@ class FilmesController extends Controller
 
     public function store(Request $request)
     {
-        $filme = Filme::create($request->all());
+       Filme::create($request->all());
+       $request->session()
+           ->flash
+           ('mensagem',
+               'Filme criado com sucesso');
 
-        echo "Série com id ($filme->id) criada: ($filme->nome)";
+        return redirect()->route('listar-filmes');
+
+    }
+
+    public function destroy(Request $request)
+    {
+        Filme::destroy($request->id);
+        $request->session()
+            ->flash
+            ('mensagem',
+                'Filme deletado com sucesso');
+
+        return redirect()->route('listar-filmes');
 
     }
 }
