@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filme;
+use App\Http\Requests\FilmeFormRequest;
 use Illuminate\Http\Request;
 
 class FilmesController extends Controller
@@ -22,8 +23,9 @@ class FilmesController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(FilmeFormRequest $request)
     {
+
        Filme::create($request->all());
        $request->session()
            ->flash
